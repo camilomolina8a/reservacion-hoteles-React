@@ -1,9 +1,13 @@
 import React from 'react'
 
+import './styles/App.css'
+
+import Header from './components/Header'
+
 export default function  App () {
   return (
-    <div>
-      <h1>Empezamos el proyecto. Disfruta!!!!</h1>
+    <div className="app-container">
+      <Header/>
     </div>
   )
-}
+} 
