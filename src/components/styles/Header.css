@@ -2,7 +2,11 @@
 
 .header-container {
     width: 95%;
-    border: 1px solid black;
+    /* border: 1px solid rgb(53, 43, 43); */
+
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
 
 }
 .header-container__up {

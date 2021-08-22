@@ -1,0 +1,153 @@
+.carta-container {
+    
+    width: 33%;
+    padding: 15px;
+    margin-top: 10px;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+}
+
+.carta-imagen {
+    margin: 0 auto;
+    height: 240px;
+    width: 100%;
+}
+
+.carta-imagen img {
+    height: 100%;
+    width: 100%;
+}
+
+.nombre-hotel {
+    width: 100%;
+    padding: 10px 0;
+}
+
+.texto-fechaInicio, .texto-fechaSalida {
+    height: 40px;
+    padding: 10px;
+    color: #ffff;
+    background-color: #00706C;
+    margin-bottom: 10px;
+}
+
+.texto-descripcion {
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.texto-descripcion::-webkit-scrollbar {
+    background: lightgray;
+    border-radius: 4px;
+    width: 5px;
+}
+.texto-descripcion::-webkit-scrollbar-thumb {
+    background: #00706C;
+    border-radius: 4px;
+    width: 5px;
+}
+
+.ubicacion{
+    height: 40px;
+    margin-top: 10px;
+    display: flex; 
+    border-radius: 5px;
+
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+
+}
+.ubicacion p {
+    height: 100%;
+    width: 85%;
+    padding-left: 10px;
+    line-height: 38px;
+}
+.ubicacion span {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 15%;
+    /* background-color: #F2E1C2; */
+    background-color: #00323F;
+    border-radius: 5px;
+    border-right: 1px solid black;
+    
+}
+.ubicacion span img{
+    height: 60%;
+}
+
+
+.contenedor-habitaciones-precios {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    
+}
+.habitaciones {
+    display: flex;
+    width: 60%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+}
+.habitaciones span {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+    /* background-color: #F2E1C2; */
+    background-color: #00323F;
+    border-radius: 5px;
+    /* border-right: 1px solid black; */
+}
+.habitaciones span img{
+    height: 60%;
+}
+
+.habitaciones p {
+    width: 70%;
+    padding-left: 10px;
+    line-height: 38px;
+}
+.precios {
+    width: 30%;
+    border-radius: 5px;
+    line-height: 38px;
+    padding-left: 10px;
+    background-color: #00323F;
+    color: #ffff;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+}
+
+.boton-reservar {
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+}
+.boton-reservar a {
+    display: inline-block;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 35px;
+    color: white;
+    background-color: #00706C;
+    letter-spacing: 1px;
+}
+.boton-reservar a:hover {
+    background-color: #008b87;
+}
