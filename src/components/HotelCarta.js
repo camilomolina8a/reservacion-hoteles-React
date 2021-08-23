@@ -7,7 +7,7 @@ import imagenHotel from '../alto-atacama.jpg'
 import icono_ubicacion from "../iconos-imagenes/marcador-de-posicion(rellenoBlanco).svg"
 import icono_cama from "../iconos-imagenes/cama.svg"
 
-function HotelCarta() {
+function HotelCarta(props) {
     return (
         <div className="carta-container">
             <div className="carta-imagen">
