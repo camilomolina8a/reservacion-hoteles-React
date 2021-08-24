@@ -5,8 +5,9 @@ import './styles/App.css'
 
 import HotelCarta from './components/HotelCarta'
 
-import  {hotelsData,today}  from './data'
+import  {hotelsData}  from './data'
 
+//import imagenEjemplo from './images/campo-tinto.jpg'
 
 export default function  App () {
 
@@ -69,19 +70,6 @@ export default function  App () {
         return fechaHoyFormateadaAnioMesDia
     }
 
-  // Funcion para poner una fecha y formatearla a lenguaje natural
-    const fechaLenguajeNatural= (fecha) => {
-        let today_ms = new Date(fecha)
-        let hoy = new Date(today_ms);
-        let diaDeLaSeamana = hoy.getDay();
-        let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
-        let dia = hoy.getDate() + 1;
-        let mes = hoy.getMonth();
-        let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-        let anio = hoy.getFullYear();
-
-        return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
-    }
 
   // Funcion para poner la fecha en el DOM en forma de lenguaje natural
 
@@ -94,6 +82,7 @@ export default function  App () {
         }
     }
   // ##########################################################################
+
 
     return (
         
@@ -131,7 +120,7 @@ export default function  App () {
                                     
                 <div className="fecha-salida-container">
                     <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
-                    <input value={fechaSalida}  type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+                    <input value={fechaSalida} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
                 </div>
 
                 <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
@@ -165,6 +154,66 @@ export default function  App () {
         
     )
   } 
+// ##########################################################################
+
+
+  const transformacionPrecio = (numero)  => {
+    if (numero === 1) {
+      return "$"
+    }
+    else if (numero === 2) {
+      return "$ $"
+    }
+    else if (numero === 3) {
+      return "$ $ $"
+    }
+    else if (numero === 4) {
+      return "$ $ $ $"
+    }
+  }
+
+// Funcion para poner una fecha y formatearla a lenguaje natural
+  const fechaLenguajeNatural= (fecha) => {
+    let today_ms = new Date(fecha)
+    let hoy = new Date(today_ms);
+    let diaDeLaSeamana = hoy.getDay();
+    let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+    let dia = hoy.getDate() + 1;
+    let mes = hoy.getMonth();
+    let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    let anio = hoy.getFullYear();
+
+    return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
+  }
+
+// ##########################################################################
+// Funcion para mostrar todos los hoteles sin nigun filtro
+
+  const hoteles = hotelsData.map( (hotel) => {
+    return (
+      
+        <HotelCarta   key = {hotel.slug} 
+                      imagen = {hotel.photo}
+                      nombre = {hotel.name}
+                      fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+                      fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+                      descripcion = {hotel.description}
+                      ciudad = {hotel.city}
+                      pais = {hotel.country}
+                      habitaciones = {hotel.rooms}
+                      precio = {transformacionPrecio(hotel.price)}
+                      
+          />
+      
+        
+        
+          ) 
+  } ) 
+
+  
+
+  // ##########################################################################
+
   return (
     <>
         <div className="up-container">
@@ -172,7 +221,7 @@ export default function  App () {
         </div>
 
         <div className="down-container">
-          <HotelCarta/>
+          {hoteles}
         </div>
     </>    
   )
