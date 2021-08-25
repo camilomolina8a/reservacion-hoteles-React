@@ -7,56 +7,86 @@ import HotelCarta from './components/HotelCarta'
 
 import  {hotelsData}  from './data'
 
-//import imagenEjemplo from './images/campo-tinto.jpg'
-
 export default function  App () {
+
+  const [fechaIngreso, setFechaIngreso] = useState("");
+
+  const [fechaSalida, setFechaSalida] = useState("");
+
+  const [paises,setPaises] = useState("todos-paises");
+
+  const [precios,setPrecios] = useState("todos-precios");
+
+  const [tamanios,setTamanios] = useState("todos-tamaños");
+
+  const handlerFechaIngreso = (e) => {
+    setFechaIngreso(e.target.value)
+  }
+    //console.log(fechaIngreso)
+
+  const handlerFechaSalida = (e) => {
+    setFechaSalida(e.target.value)
+  }
+    //console.log(fechaSalida)
+
+  const handlerSeleccionarPais = (e) => {
+    setPaises(e.target.value); 
+  }
+    //console.log(paises)
+
+  const handlerSeleccionarPrecio = (e) => {
+    setPrecios(e.target.value); 
+  }
+    //console.log(precios)
+
+  const handlerSeleccionarTamanio = (e) => {
+    setTamanios(e.target.value); 
+  }
+    //console.log(tamanios)
+
+  const limpiarDatos = () => {
+    setFechaIngreso("")
+    setFechaSalida("")
+    setPaises("todos-paises")
+    setPrecios("todos-precios")
+    setTamanios("todos-tamaños")
+  }
+
+  // ##########################################################################
+
+  const transformacionPrecio = (numero)  => {
+    if (numero === 1) {
+      return "$"
+    }
+    else if (numero === 2) {
+      return "$ $"
+    }
+    else if (numero === 3) {
+      return "$ $ $"
+    }
+    else if (numero === 4) {
+      return "$ $ $ $"
+    }
+  }
+
+// Funcion para poner una fecha y formatearla a lenguaje natural
+  const fechaLenguajeNatural= (fecha) => {
+    let today_ms = new Date(fecha)
+    let hoy = new Date(today_ms);
+    let diaDeLaSeamana = hoy.getDay();
+    let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+    let dia = hoy.getDate() + 1;
+    let mes = hoy.getMonth();
+    let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    let anio = hoy.getFullYear();
+
+    return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
+  }
+    
+// ##########################################################################
 
   function Header() {
 
-    const [fechaIngreso, setFechaIngreso] = useState("");
-
-    const [fechaSalida, setFechaSalida] = useState("");
-
-    const [paises,setPaises] = useState("todos-paises");
-
-    const [precios,setPrecios] = useState("todos-precios");
-
-    const [tamanios,setTamanios] = useState("todos-tamaños");
-
-    const handlerFechaIngreso = (e) => {
-        setFechaIngreso(e.target.value)
-    }
-    //console.log(fechaIngreso)
-
-    const handlerFechaSalida = (e) => {
-        setFechaSalida(e.target.value)
-    }
-    //console.log(fechaSalida)
-
-    const handlerSeleccionarPais = (e) => {
-        setPaises(e.target.value); 
-    }
-    //console.log(paises)
-
-    const handlerSeleccionarPrecio = (e) => {
-        setPrecios(e.target.value); 
-    }
-    //console.log(precios)
-
-    const handlerSeleccionarTamanio = (e) => {
-        setTamanios(e.target.value); 
-    }
-    //console.log(tamanios)
-
-    const limpiarDatos = () => {
-        setFechaIngreso("")
-        setFechaSalida("")
-        setPaises("todos-paises")
-        setPrecios("todos-precios")
-        setTamanios("todos-tamaños")
-    }
-    
-  // ##########################################################################
 
   // Funcion para poder formatear la fecha de Hoy a año-mes-dia y setear la fecha minima de ingreso en el input de tipo date
     const fechaDeHoyFormateadaAnioMesDia = () => {
@@ -153,42 +183,11 @@ export default function  App () {
         </div>
         
     )
-  } 
+  }
 // ##########################################################################
 
 
-  const transformacionPrecio = (numero)  => {
-    if (numero === 1) {
-      return "$"
-    }
-    else if (numero === 2) {
-      return "$ $"
-    }
-    else if (numero === 3) {
-      return "$ $ $"
-    }
-    else if (numero === 4) {
-      return "$ $ $ $"
-    }
-  }
-
-// Funcion para poner una fecha y formatearla a lenguaje natural
-  const fechaLenguajeNatural= (fecha) => {
-    let today_ms = new Date(fecha)
-    let hoy = new Date(today_ms);
-    let diaDeLaSeamana = hoy.getDay();
-    let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
-    let dia = hoy.getDate() + 1;
-    let mes = hoy.getMonth();
-    let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-    let anio = hoy.getFullYear();
-
-    return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
-  }
-
-// ##########################################################################
-// Funcion para mostrar todos los hoteles sin nigun filtro
-
+// Funcion para mostrar los hoteles
   const hoteles = hotelsData.map( (hotel) => {
     return (
       
@@ -209,8 +208,6 @@ export default function  App () {
         
           ) 
   } ) 
-
-  
 
   // ##########################################################################
 
