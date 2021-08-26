@@ -9,6 +9,8 @@ import  {hotelsData}  from './data'
 
 export default function  App () {
 
+  const [listaHoteles,setListaHoteles] = useState(hotelsData);
+
   const [fechaIngreso, setFechaIngreso] = useState("");
 
   const [fechaSalida, setFechaSalida] = useState("");
@@ -45,6 +47,7 @@ export default function  App () {
     //console.log(tamanios)
 
   const limpiarDatos = () => {
+    setListaHoteles(hotelsData)
     setFechaIngreso("")
     setFechaSalida("")
     setPaises("todos-paises")
@@ -185,29 +188,73 @@ export default function  App () {
     )
   }
 // ##########################################################################
+// let listaModificada = listaHoteles.map( (hotel) => {
 
+// if (fechaIngreso === "" && fechaSalida === "" && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños") {
+      //   return "HOLA"
+      // }
+
+//   <HotelCarta   key = {hotel.slug} 
+//           imagen = {hotel.photo}
+//           nombre = {hotel.name}
+//           fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+//           fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+//           descripcion = {hotel.description}
+//           ciudad = {hotel.city}
+//           pais = {hotel.country}
+//           habitaciones = {hotel.rooms}
+//           precio = {transformacionPrecio(hotel.price)}          
+//   />
+
+// })
+// ##########################################################################
 
 // Funcion para mostrar los hoteles
-  const hoteles = hotelsData.map( (hotel) => {
-    return (
-      
-        <HotelCarta   key = {hotel.slug} 
-                      imagen = {hotel.photo}
-                      nombre = {hotel.name}
-                      fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
-                      fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
-                      descripcion = {hotel.description}
-                      ciudad = {hotel.city}
-                      pais = {hotel.country}
-                      habitaciones = {hotel.rooms}
-                      precio = {transformacionPrecio(hotel.price)}
-                      
-          />
-      
-        
-        
-          ) 
-  } ) 
+  console.log("===================================================")
+  console.log("Prueba para ver el estado INICIAL de listaHoteles: ")
+  console.log(listaHoteles)
+  console.log("===================================================")
+  console.log("")
+
+  const hoteles =  () => {
+
+    if (fechaIngreso === "" && fechaSalida === "" && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños" && listaHoteles === hotelsData) {
+      return (
+
+      listaHoteles.map( (hotel) => {
+        return (
+          <HotelCarta   key = {hotel.slug} 
+          imagen = {hotel.photo}
+          nombre = {hotel.name}
+          fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+          fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+          descripcion = {hotel.description}
+          ciudad = {hotel.city}
+          pais = {hotel.country}
+          habitaciones = {hotel.rooms}
+          precio = {transformacionPrecio(hotel.price)}          
+        />
+        )
+
+      })
+
+      )
+    }
+    else{
+      return  <h1 className= "TODOS">AQUI VAN LOS FILTRADOS</h1>
+    }
+
+    
+
+  }
+
+ //console.log(hoteles())
+  console.log("")
+
+  console.log("###################################################")
+  console.log("Prueba para ver el estado POSTERIOR de listaHoteles: ")
+  console.log(listaHoteles)
+  console.log("###################################################")
 
   // ##########################################################################
 
@@ -218,7 +265,7 @@ export default function  App () {
         </div>
 
         <div className="down-container">
-          {hoteles}
+          {hoteles()}
         </div>
     </>    
   )
