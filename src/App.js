@@ -4,6 +4,7 @@ import { useState } from 'react'
 import './styles/App.css'
 
 import HotelCarta from './components/HotelCarta'
+import NotFound from './components/NotFound'
 
 import  {hotelsData}  from './data'
 
@@ -187,74 +188,80 @@ export default function  App () {
         
     )
   }
-// ##########################################################################
-// let listaModificada = listaHoteles.map( (hotel) => {
 
-// if (fechaIngreso === "" && fechaSalida === "" && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños") {
-      //   return "HOLA"
-      // }
-
-//   <HotelCarta   key = {hotel.slug} 
-//           imagen = {hotel.photo}
-//           nombre = {hotel.name}
-//           fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
-//           fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
-//           descripcion = {hotel.description}
-//           ciudad = {hotel.city}
-//           pais = {hotel.country}
-//           habitaciones = {hotel.rooms}
-//           precio = {transformacionPrecio(hotel.price)}          
-//   />
-
-// })
-// ##########################################################################
-
-// Funcion para mostrar los hoteles
-  console.log("===================================================")
-  console.log("Prueba para ver el estado INICIAL de listaHoteles: ")
-  console.log(listaHoteles)
-  console.log("===================================================")
-  console.log("")
 
   const hoteles =  () => {
 
     if (fechaIngreso === "" && fechaSalida === "" && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños" && listaHoteles === hotelsData) {
-      return (
+      return ( 
 
-      listaHoteles.map( (hotel) => {
-        return (
-          <HotelCarta   key = {hotel.slug} 
-          imagen = {hotel.photo}
-          nombre = {hotel.name}
-          fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
-          fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
-          descripcion = {hotel.description}
-          ciudad = {hotel.city}
-          pais = {hotel.country}
-          habitaciones = {hotel.rooms}
-          precio = {transformacionPrecio(hotel.price)}          
-        />
-        )
-
-      })
-
+        listaHoteles.map( (hotel) => {
+          return (
+            <HotelCarta   key = {hotel.slug} 
+            imagen = {hotel.photo}
+            nombre = {hotel.name}
+            fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+            fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+            descripcion = {hotel.description}
+            ciudad = {hotel.city}
+            pais = {hotel.country}
+            habitaciones = {hotel.rooms}
+            precio = {transformacionPrecio(hotel.price)}          
+            />
+          )
+        })
       )
     }
-    else{
-      return  <h1 className= "TODOS">AQUI VAN LOS FILTRADOS</h1>
-    }
+
+    else {
+      
+      console.log("Antes")
+      console.log("")
+
+      let listaModificada = listaHoteles.filter( (hotel) => {
+
+
+        if ( hotel.country === paises || paises === "todos-paises" ) {
+          if (hotel.price.toString() === precios || precios === "todos-precios"){
+            if ( tamanios === "todos-tamaños"){
+              return hotel
+            }
+            else{
+              if (hotel.rooms <= 10 && tamanios === "pequeño"){
+                return hotel
+              }
+              else if (hotel.rooms > 10 && hotel.rooms <= 20 && tamanios === "mediano"){
+                return hotel
+              }
+              else if (hotel.rooms > 20 && tamanios === "grande") {
+                return hotel
+              }
+            }
+          }
+        }
+      }) // este cierra la variable listaModificada
+
+
+      if (listaModificada.length > 0 ) {
+        //return <h1>SI HAY HOTELES</h1>
+        console.log("Hay", listaModificada.length, "hoteles disponibles")
+        // console.log(listaModificada)
+      }
+      else {
+        return <NotFound></NotFound>
+        //console.log("No Hay Hoteles Disponibles!!!")
+      }      
+
+      
+
+      console.log("")  
+      console.log("Despues")
+    
+    }//llave cierre del else
 
     
-
   }
 
- //console.log(hoteles())
-  console.log("")
-
-  console.log("###################################################")
-  console.log("Prueba para ver el estado POSTERIOR de listaHoteles: ")
-  console.log(listaHoteles)
-  console.log("###################################################")
 
   // ##########################################################################
 
