@@ -25,27 +25,22 @@ export default function  App () {
   const handlerFechaIngreso = (e) => {
     setFechaIngreso(e.target.value)
   }
-    //console.log(fechaIngreso)
 
   const handlerFechaSalida = (e) => {
     setFechaSalida(e.target.value)
   }
-    //console.log(fechaSalida)
 
   const handlerSeleccionarPais = (e) => {
     setPaises(e.target.value); 
   }
-    //console.log(paises)
 
   const handlerSeleccionarPrecio = (e) => {
     setPrecios(e.target.value); 
   }
-    //console.log(precios)
 
   const handlerSeleccionarTamanio = (e) => {
     setTamanios(e.target.value); 
   }
-    //console.log(tamanios)
 
   const limpiarDatos = () => {
     setListaHoteles(hotelsData)
@@ -55,8 +50,6 @@ export default function  App () {
     setPrecios("todos-precios")
     setTamanios("todos-tamaños")
   }
-
-  // ##########################################################################
 
   const transformacionPrecio = (numero)  => {
     if (numero === 1) {
@@ -75,19 +68,30 @@ export default function  App () {
 
 // Funcion para poner una fecha y formatearla a lenguaje natural
   const fechaLenguajeNatural= (fecha) => {
-    let today_ms = new Date(fecha)
-    let hoy = new Date(today_ms);
-    let diaDeLaSeamana = hoy.getDay();
-    let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
-    let dia = hoy.getDate() + 1;
-    let mes = hoy.getMonth();
-    let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-    let anio = hoy.getFullYear();
 
-    return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
+    if (typeof(fecha) === 'string') {
+      let hoy = new Date(fecha);
+      let diaDeLaSeamana = hoy.getDay();
+      let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+      let dia = hoy.getDate() ;
+      let mes = hoy.getMonth();
+      let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+      let anio = hoy.getFullYear();
+
+      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia + 1} de ${nombreMes[mes]} de ${anio}`
+    }
+    else {
+      let hoy = new Date(fecha);
+      let diaDeLaSeamana = hoy.getDay();
+      let nombreDiaDeLaSemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
+      let dia = hoy.getDate() ;
+      let mes = hoy.getMonth();
+      let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+      let anio = hoy.getFullYear();
+      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
+    }
   }
     
-// ##########################################################################
 
   function Header() {
 
@@ -103,6 +107,7 @@ export default function  App () {
         let fechaHoyFormateadaAnioMesDia = `${anio}-${mes}-${dia}`
         return fechaHoyFormateadaAnioMesDia
     }
+    //console.log(fechaDeHoyFormateadaAnioMesDia())
 
 
   // Funcion para poner la fecha en el DOM en forma de lenguaje natural
@@ -115,7 +120,7 @@ export default function  App () {
             return <h3>{`Desde el ${fechaLenguajeNatural(fechaIngreso)} hasta el ${fechaLenguajeNatural(fechaSalida)}.`}</h3>
         }
     }
-  // ##########################################################################
+  // ################################################
 
 
     return (
@@ -154,7 +159,7 @@ export default function  App () {
                                     
                 <div className="fecha-salida-container">
                     <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
-                    <input value={fechaSalida} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+                    <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
                 </div>
 
                 <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
@@ -192,7 +197,7 @@ export default function  App () {
 
   const hoteles =  () => {
 
-    if (fechaIngreso === "" && fechaSalida === "" && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños" && listaHoteles === hotelsData) {
+    if ( (fechaIngreso === "" || fechaSalida === "")  && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños" && listaHoteles === hotelsData) {
       return ( 
 
         listaHoteles.map( (hotel) => {
@@ -214,56 +219,67 @@ export default function  App () {
     }
 
     else {
-      
-      console.log("Antes")
-      console.log("")
 
       let listaModificada = listaHoteles.filter( (hotel) => {
 
+        let fechaIngresoMilisegundos = new Date(fechaIngreso).valueOf() + 86400000 - 68400000 // 12 am ( comienzo del dia)
+        let fechaSalidaMilisegundos = new Date(fechaSalida).valueOf() + 86400000 + 86399000 // 23:59:59 final del dia
 
-        if ( hotel.country === paises || paises === "todos-paises" ) {
-          if (hotel.price.toString() === precios || precios === "todos-precios"){
-            if ( tamanios === "todos-tamaños"){
-              return hotel
-            }
-            else{
-              if (hotel.rooms <= 10 && tamanios === "pequeño"){
+        if ( ( hotel.availabilityFrom >= fechaIngresoMilisegundos || fechaIngreso === "")  && (hotel.availabilityTo <= fechaSalidaMilisegundos || fechaSalida === "") ) {
+
+          if ( hotel.country === paises || paises === "todos-paises" ) {
+            if (hotel.price.toString() === precios || precios === "todos-precios"){
+              if ( tamanios === "todos-tamaños"){
                 return hotel
               }
-              else if (hotel.rooms > 10 && hotel.rooms <= 20 && tamanios === "mediano"){
-                return hotel
-              }
-              else if (hotel.rooms > 20 && tamanios === "grande") {
-                return hotel
+              else{
+                if (hotel.rooms <= 10 && tamanios === "pequeño"){
+                  return hotel
+                }
+                else if (hotel.rooms > 10 && hotel.rooms <= 20 && tamanios === "mediano"){
+                  return hotel
+                }
+                else if (hotel.rooms > 20 && tamanios === "grande") {
+                  return hotel
+                }
               }
             }
           }
-        }
-      }) // este cierra la variable listaModificada
-
+        
+      }
+    }) // este cierra la variable listaModificada
 
       if (listaModificada.length > 0 ) {
-        //return <h1>SI HAY HOTELES</h1>
-        console.log("Hay", listaModificada.length, "hoteles disponibles")
-        // console.log(listaModificada)
+        
+        return ( 
+
+          listaModificada.map( (hotel) => {
+            return (
+              <HotelCarta   key = {hotel.slug} 
+              imagen = {hotel.photo}
+              nombre = {hotel.name}
+              fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+              fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+              descripcion = {hotel.description}
+              ciudad = {hotel.city}
+              pais = {hotel.country}
+              habitaciones = {hotel.rooms}
+              precio = {transformacionPrecio(hotel.price)}          
+              />
+            )
+          })
+        )
+        
       }
       else {
-        return <NotFound></NotFound>
-        //console.log("No Hay Hoteles Disponibles!!!")
+        return <NotFound/>
       }      
 
-      
-
-      console.log("")  
-      console.log("Despues")
+    }
     
-    }//llave cierre del else
+  } // cierre de funcion hoteles ()
 
-    
-  }
-
-
-  // ##########################################################################
+  // ################### MAIN ###################
 
   return (
     <>
@@ -272,7 +288,7 @@ export default function  App () {
         </div>
 
         <div className="down-container">
-          {hoteles()}
+          { hoteles()}
         </div>
     </>    
   )
