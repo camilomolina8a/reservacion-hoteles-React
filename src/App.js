@@ -8,6 +8,7 @@ import NotFound from './components/NotFound'
 
 import  {hotelsData}  from './data'
 
+
 export default function  App () {
 
   const [listaHoteles,setListaHoteles] = useState(hotelsData);
@@ -50,6 +51,7 @@ export default function  App () {
     setPrecios("todos-precios")
     setTamanios("todos-tamaños")
   }
+  // ========================= FUNCIONES VARIAS ================================
 
   const transformacionPrecio = (numero)  => {
     if (numero === 1) {
@@ -91,10 +93,9 @@ export default function  App () {
       return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
     }
   }
-    
+// ============================================================================ 
 
   function Header() {
-
 
   // Funcion para poder formatear la fecha de Hoy a año-mes-dia y setear la fecha minima de ingreso en el input de tipo date
     const fechaDeHoyFormateadaAnioMesDia = () => {
@@ -137,12 +138,12 @@ export default function  App () {
                 { precios==="todos-precios" 
                     ? <h3>De cualquier precio</h3> 
                     : [ precios==="1" 
-                        ? <h3>De precio muy barato</h3> 
+                        ? <h3>Económico</h3> 
                         : [ precios==="2" 
-                            ? <h3>De precio barato</h3> 
+                            ? <h3>Confort</h3> 
                             : [ precios==="3"
-                                ? <h3>De precio costoso</h3>
-                                : [ precios==="4" && <h3>De precio muy costoso</h3>
+                                ? <h3>Lujoso</h3>
+                                : [ precios==="4" && <h3>Magnífico</h3>
                                     ]]]] 
                 } 
                     

@@ -1,4 +1,3 @@
-
 .up-container {
     margin-top: 10px;
     display: flex;
@@ -10,26 +9,21 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; /*!Recuerda analizar esto */
+    flex-wrap: wrap;
     width: 95%;
-    
 
     /* border: 1px solid black; */
 }
 
-
 /*Todo a continuacion es el Css del Header*/
-
-
 
 .header-container {
     width: 95%;
     /* border: 1px solid rgb(53, 43, 43); */
 
     -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
-    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.5);
-    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.5);
-
+    -moz-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
+    box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.5);
 }
 .header-container__up {
     display: flex;
@@ -39,8 +33,7 @@
     width: 100%;
     height: 250px;
     /* border: 2px solid black; */
-    background-color: #00706C;
-
+    background-color: #00706c;
 }
 h1 {
     font-size: 36px;
@@ -56,7 +49,6 @@ h3 {
     color: #fff;
     letter-spacing: 1px;
     /* border: 1px solid black; */
-
 }
 
 .header-container__down {
@@ -65,8 +57,7 @@ h3 {
     align-items: center;
     width: 100%;
     height: 70px;
-    background-color: #00323F;
-
+    background-color: #00323f;
 }
 
 .fecha-ingreso-container {
@@ -78,13 +69,12 @@ h3 {
     position: relative;
     border-radius: 10px;
     /* border: 1px solid red; */
-    background-color: #F2E1C2;
+    background-color: #f2e1c2;
 }
 
 .fecha-ingreso-container:hover {
-    background-color: rgba(242,225,194,0.85);
+    background-color: rgba(242, 225, 194, 0.85);
 }
-
 
 .fecha-ingreso[type="date"] {
     width: 90px;
@@ -114,10 +104,10 @@ h3 {
     position: relative;
     border-radius: 10px;
     /* border: 1px solid red; */
-    background-color: #F2E1C2;
+    background-color: #f2e1c2;
 }
 .fecha-salida-container:hover {
-    background-color: rgba(242,225,194,0.85);
+    background-color: rgba(242, 225, 194, 0.85);
 }
 
 .fecha-salida[type="date"] {
@@ -136,8 +126,7 @@ h3 {
     opacity: 0;
     pointer-events: auto;
     cursor: pointer;
-
-    }
+}
 
 select {
     width: 200px;
@@ -146,14 +135,14 @@ select {
     /* appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none; */
-    background-color: #F2E1C2;
+    background-color: #f2e1c2;
     border-radius: 10px;
 }
 /* select::-ms-expand {
     position: none;
 } */
 select:hover {
-    background-color: rgba(242,225,194,0.85);
+    background-color: rgba(242, 225, 194, 0.85);
     border-radius: 10px;
     cursor: pointer;
 }
@@ -162,10 +151,10 @@ select:hover {
     width: 80px;
     border-radius: 10px;
     color: #fff;
-    background-color: #F26241;
+    background-color: #f26241;
 }
 
 /*#####################################################*/
 .TODOS {
-    color:red;
+    color: red;
 }
