@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './styles/App.css'
 
 import HotelCarta from './components/HotelCarta'
-import NotFound from './components/NotFound'
+import NoDisponible from './components/NoDisponible'
 
 import  {hotelsData}  from './data'
 
@@ -95,108 +95,111 @@ export default function  App () {
   }
 // ============================================================================ 
 
-  function Header() {
+  
+  
+  const Header =  () => {
 
-  // Funcion para poder formatear la fecha de Hoy a año-mes-dia y setear la fecha minima de ingreso en el input de tipo date
-    const fechaDeHoyFormateadaAnioMesDia = () => {
-        let hoy = new Date();
-        let dia = hoy.getDate();
-        dia = ('0' + dia).slice(-2);
-        let mes = hoy.getMonth() + 1;
-        mes = ('0' + mes).slice(-2);
-        let anio = hoy.getFullYear();
-        let fechaHoyFormateadaAnioMesDia = `${anio}-${mes}-${dia}`
-        return fechaHoyFormateadaAnioMesDia
-    }
-    //console.log(fechaDeHoyFormateadaAnioMesDia())
-
-
-  // Funcion para poner la fecha en el DOM en forma de lenguaje natural
-
-    const fechaEnLenguajeNaturalEnHeader = () => {
-        if (fechaIngreso === "" || fechaSalida === ""){
-            return <h3>En cualquier fecha</h3>
-        }
-        else{
-            return <h3>{`Desde el ${fechaLenguajeNatural(fechaIngreso)} hasta el ${fechaLenguajeNatural(fechaSalida)}.`}</h3>
-        }
-    }
-  // ################################################
-
-
-    return (
-        
-        <div className='header-container'>
-
-            <div className='header-container__up'>
-                <h1>Hoteles</h1>
-
-                {fechaEnLenguajeNaturalEnHeader()}
-
-                { paises==="todos-paises" ? <h3>En cualquier país</h3> : <h3>{`En ${paises}`}</h3>}
-
-                { precios==="todos-precios" 
-                    ? <h3>De cualquier precio</h3> 
-                    : [ precios==="1" 
-                        ? <h3>Económico</h3> 
-                        : [ precios==="2" 
-                            ? <h3>Confort</h3> 
-                            : [ precios==="3"
-                                ? <h3>Lujoso</h3>
-                                : [ precios==="4" && <h3>Magnífico</h3>
-                                    ]]]] 
-                } 
-                    
-                
-                {tamanios==="todos-tamaños" ? <h3>De cualquier tamaño</h3> : <h3>{`De tamaño ${tamanios}`}</h3>}
-            </div>
-
-            <div className='header-container__down'>
-
-                <div className="fecha-ingreso-container">
-                    <label for="fecha-ingreso" class="etiqueta-fecha-ingreso">Desde:</label>
-                    <input value={fechaIngreso} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-ingreso" class="fecha-ingreso" onChange={handlerFechaIngreso}/>
-                </div>
-                                    
-                <div className="fecha-salida-container">
-                    <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
-                    <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
-                </div>
-
-                <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
-                    <option value="todos-paises">Todos los países</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Uruguay">Uruguay</option>
-                    <option value="Brasil">Brasil</option>
-                    <option value="Chile">Chile</option>
-                </select>
-
-                <select value={precios} name="precios" id="" onChange={handlerSeleccionarPrecio}>
-                    <option value="todos-precios">Todos los precios</option>
-                    <option value="1">$</option>
-                    <option value="2">$  $</option>
-                    <option value="3">$  $  $</option>
-                    <option value="4">$  $  $  $</option>
-                </select>
-
-                <select value={tamanios} name="tamanios" id="" onChange={handlerSeleccionarTamanio}>
-                    <option value="todos-tamaños">Cualquier tamaño</option>
-                    <option value="pequeño">Pequeño</option>
-                    <option value="mediano">Mediano</option>
-                    <option value="grande">Grande</option>
-                </select>
-
-                <button type='button' className="button" onClick={limpiarDatos}>LIMPIAR</button>
-
-            </div>
-            
-        </div>
-        
-    )
+        // Funcion para poder formatear la fecha de Hoy a año-mes-dia y setear la fecha minima de ingreso en el input de tipo date
+          const fechaDeHoyFormateadaAnioMesDia = () => {
+              let hoy = new Date();
+              let dia = hoy.getDate();
+              dia = ('0' + dia).slice(-2);
+              let mes = hoy.getMonth() + 1;
+              mes = ('0' + mes).slice(-2);
+              let anio = hoy.getFullYear();
+              let fechaHoyFormateadaAnioMesDia = `${anio}-${mes}-${dia}`
+              return fechaHoyFormateadaAnioMesDia
+          }      
+      
+        // Funcion para poner la fecha en el DOM en forma de lenguaje natural
+      
+          const fechaEnLenguajeNaturalEnHeader = () => {
+              if (fechaIngreso === "" || fechaSalida === ""){
+                  return <h3>En cualquier fecha</h3>
+              }
+              else{
+                  return <h3>{`Desde el ${fechaLenguajeNatural(fechaIngreso)} hasta el ${fechaLenguajeNatural(fechaSalida)}.`}</h3>
+              }
+          }
+        // ################################################
+      
+      
+          return (
+              
+              <div className='header-container'>
+      
+                  <div className='header-container__up'>
+                      <h1>Hoteles</h1>
+      
+                      {fechaEnLenguajeNaturalEnHeader()}
+      
+                      { paises==="todos-paises" ? <h3>En cualquier país</h3> : <h3>{`En ${paises}`}</h3>}
+      
+                      { precios==="todos-precios" 
+                          ? <h3>De cualquier precio</h3> 
+                          : [ precios==="1" 
+                              ? <h3>Económico</h3> 
+                              : [ precios==="2" 
+                                  ? <h3>Confort</h3> 
+                                  : [ precios==="3"
+                                      ? <h3>Lujoso</h3>
+                                      : [ precios==="4" && <h3>Magnífico</h3>
+                                          ]]]] 
+                      } 
+                          
+                      
+                      {tamanios==="todos-tamaños" ? <h3>De cualquier tamaño</h3> : <h3>{`De tamaño ${tamanios}`}</h3>}
+                  </div>
+      
+                  <div className='header-container__down'>
+      
+                      <div className="fecha-ingreso-container">
+                          <label for="fecha-ingreso" class="etiqueta-fecha-ingreso">Desde:</label>
+                          <input value={fechaIngreso} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-ingreso" class="fecha-ingreso" onChange={handlerFechaIngreso}/>
+                      </div>
+                                          
+                      <div className="fecha-salida-container">
+                          <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
+                          <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+                      </div>
+      
+                      <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
+                          <option value="todos-paises">Todos los países</option>
+                          <option value="Argentina">Argentina</option>
+                          <option value="Uruguay">Uruguay</option>
+                          <option value="Brasil">Brasil</option>
+                          <option value="Chile">Chile</option>
+                      </select>
+      
+                      <select value={precios} name="precios" id="" onChange={handlerSeleccionarPrecio}>
+                          <option value="todos-precios">Todos los precios</option>
+                          <option value="1">$</option>
+                          <option value="2">$  $</option>
+                          <option value="3">$  $  $</option>
+                          <option value="4">$  $  $  $</option>
+                      </select>
+      
+                      <select value={tamanios} name="tamanios" id="" onChange={handlerSeleccionarTamanio}>
+                          <option value="todos-tamaños">Cualquier tamaño</option>
+                          <option value="pequeño">Pequeño</option>
+                          <option value="mediano">Mediano</option>
+                          <option value="grande">Grande</option>
+                      </select>
+      
+                      <button type='button' className="button" onClick={limpiarDatos}>LIMPIAR</button>
+      
+                  </div>
+                  
+              </div>
+              
+          )
   }
+  
+  //export default Header
+  
 
+  const ListaHoteles =  () => {
 
-  const hoteles =  () => {
 
     if ( (fechaIngreso === "" || fechaSalida === "")  && paises === "todos-paises" && precios === "todos-precios" && tamanios === "todos-tamaños" && listaHoteles === hotelsData) {
       return ( 
@@ -204,15 +207,15 @@ export default function  App () {
         listaHoteles.map( (hotel) => {
           return (
             <HotelCarta   key = {hotel.slug} 
-            imagen = {hotel.photo}
-            nombre = {hotel.name}
-            fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
-            fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
-            descripcion = {hotel.description}
-            ciudad = {hotel.city}
-            pais = {hotel.country}
-            habitaciones = {hotel.rooms}
-            precio = {transformacionPrecio(hotel.price)}          
+              imagen = {hotel.photo}
+              nombre = {hotel.name}
+              fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+              fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+              descripcion = {hotel.description}
+              ciudad = {hotel.city}
+              pais = {hotel.country}
+              habitaciones = {hotel.rooms}
+              precio = {transformacionPrecio(hotel.price)}          
             />
           )
         })
@@ -248,39 +251,43 @@ export default function  App () {
           }
         
       }
-    }) // este cierra la variable listaModificada
+    }) // cierre listaModificada
+
+      //Si la lista Modificada presenta o no hoteles :
 
       if (listaModificada.length > 0 ) {
-        
         return ( 
 
           listaModificada.map( (hotel) => {
             return (
               <HotelCarta   key = {hotel.slug} 
-              imagen = {hotel.photo}
-              nombre = {hotel.name}
-              fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
-              fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
-              descripcion = {hotel.description}
-              ciudad = {hotel.city}
-              pais = {hotel.country}
-              habitaciones = {hotel.rooms}
-              precio = {transformacionPrecio(hotel.price)}          
+                imagen = {hotel.photo}
+                nombre = {hotel.name}
+                fechaInicio = {fechaLenguajeNatural(hotel.availabilityFrom)}
+                fechaSalida = {fechaLenguajeNatural(hotel.availabilityTo)}
+                descripcion = {hotel.description}
+                ciudad = {hotel.city}
+                pais = {hotel.country}
+                habitaciones = {hotel.rooms}
+                precio = {transformacionPrecio(hotel.price)}          
               />
             )
           })
-        )
-        
+          
+        ) 
       }
+      // Si no hay hoteles con los filtros seleccionados retorna la pagina de No Disponible
       else {
-        return <NotFound/>
+        return <NoDisponible/>
       }      
 
     }
-    
-  } // cierre de funcion hoteles ()
+  } // cierre componente ListaHoteles
 
-  // ################### MAIN ###################
+
+
+
+  // ################### Return App ###################
 
   return (
     <>
@@ -289,8 +296,8 @@ export default function  App () {
         </div>
 
         <div className="down-container">
-          { hoteles()}
+          <ListaHoteles />
         </div>
     </>    
   )
-} 
+    } 
