@@ -68,7 +68,6 @@ export default function  App () {
     }
   }
 
-// Funcion para poner una fecha y formatearla a lenguaje natural
   const fechaLenguajeNatural= (fecha) => {
 
     if (typeof(fecha) === 'string') {
@@ -93,24 +92,23 @@ export default function  App () {
       return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
     }
   }
+
+  const fechaDeHoyFormateadaAnioMesDia = () => {
+    let hoy = new Date();
+    let dia = hoy.getDate();
+    dia = ('0' + dia).slice(-2);
+    let mes = hoy.getMonth() + 1;
+    mes = ('0' + mes).slice(-2);
+    let anio = hoy.getFullYear();
+    let fechaHoyFormateadaAnioMesDia = `${anio}-${mes}-${dia}`
+    return fechaHoyFormateadaAnioMesDia
+  }
 // ============================================================================ 
 
   
   
   const Header =  () => {
-
-        // Funcion para poder formatear la fecha de Hoy a año-mes-dia y setear la fecha minima de ingreso en el input de tipo date
-          const fechaDeHoyFormateadaAnioMesDia = () => {
-              let hoy = new Date();
-              let dia = hoy.getDate();
-              dia = ('0' + dia).slice(-2);
-              let mes = hoy.getMonth() + 1;
-              mes = ('0' + mes).slice(-2);
-              let anio = hoy.getFullYear();
-              let fechaHoyFormateadaAnioMesDia = `${anio}-${mes}-${dia}`
-              return fechaHoyFormateadaAnioMesDia
-          }      
-      
+            
         // Funcion para poner la fecha en el DOM en forma de lenguaje natural
       
           const fechaEnLenguajeNaturalEnHeader = () => {
@@ -150,52 +148,55 @@ export default function  App () {
                       
                       {tamanios==="todos-tamaños" ? <h3>De cualquier tamaño</h3> : <h3>{`De tamaño ${tamanios}`}</h3>}
                   </div>
-      
-                  <div className='header-container__down'>
-      
-                      <div className="fecha-ingreso-container">
-                          <label for="fecha-ingreso" class="etiqueta-fecha-ingreso">Desde:</label>
-                          <input value={fechaIngreso} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-ingreso" class="fecha-ingreso" onChange={handlerFechaIngreso}/>
-                      </div>
-                                          
-                      <div className="fecha-salida-container">
-                          <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
-                          <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
-                      </div>
-      
-                      <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
-                          <option value="todos-paises">Todos los países</option>
-                          <option value="Argentina">Argentina</option>
-                          <option value="Uruguay">Uruguay</option>
-                          <option value="Brasil">Brasil</option>
-                          <option value="Chile">Chile</option>
-                      </select>
-      
-                      <select value={precios} name="precios" id="" onChange={handlerSeleccionarPrecio}>
-                          <option value="todos-precios">Todos los precios</option>
-                          <option value="1">$</option>
-                          <option value="2">$  $</option>
-                          <option value="3">$  $  $</option>
-                          <option value="4">$  $  $  $</option>
-                      </select>
-      
-                      <select value={tamanios} name="tamanios" id="" onChange={handlerSeleccionarTamanio}>
-                          <option value="todos-tamaños">Cualquier tamaño</option>
-                          <option value="pequeño">Pequeño</option>
-                          <option value="mediano">Mediano</option>
-                          <option value="grande">Grande</option>
-                      </select>
-      
-                      <button type='button' className="button" onClick={limpiarDatos}>LIMPIAR</button>
-      
-                  </div>
-                  
-              </div>
-              
+
+              </div>  
           )
-  }
-  
-  //export default Header
+  } // cierre componente Header
+
+  const Filtros = () => {
+
+    return (
+
+        <div className='header-container__down'>
+      
+            <div className="fecha-ingreso-container">
+                <label for="fecha-ingreso" class="etiqueta-fecha-ingreso">Desde:</label>
+                <input value={fechaIngreso} min={fechaDeHoyFormateadaAnioMesDia()} type="date" id="fecha-ingreso" class="fecha-ingreso" onChange={handlerFechaIngreso}/>
+            </div>
+                                
+            <div className="fecha-salida-container">
+                <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
+                <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+            </div>
+
+            <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
+                <option value="todos-paises">Todos los países</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Chile">Chile</option>
+            </select>
+
+            <select value={precios} name="precios" id="" onChange={handlerSeleccionarPrecio}>
+                <option value="todos-precios">Todos los precios</option>
+                <option value="1">$</option>
+                <option value="2">$  $</option>
+                <option value="3">$  $  $</option>
+                <option value="4">$  $  $  $</option>
+            </select>
+
+            <select value={tamanios} name="tamanios" id="" onChange={handlerSeleccionarTamanio}>
+                <option value="todos-tamaños">Cualquier tamaño</option>
+                <option value="pequeño">Pequeño</option>
+                <option value="mediano">Mediano</option>
+                <option value="grande">Grande</option>
+            </select>
+
+            <button type='button' className="button" onClick={limpiarDatos}>LIMPIAR</button>
+
+        </div>
+    )
+  } // cierre componente Filtros
   
 
   const ListaHoteles =  () => {
@@ -293,6 +294,7 @@ export default function  App () {
     <>
         <div className="up-container">
           <Header />
+          <Filtros/>
         </div>
 
         <div className="down-container">
