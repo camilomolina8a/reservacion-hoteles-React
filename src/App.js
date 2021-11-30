@@ -286,8 +286,6 @@ export default function  App () {
   } // cierre componente ListaHoteles
 
 
-
-
   // ################### Return App ###################
 
   return (
