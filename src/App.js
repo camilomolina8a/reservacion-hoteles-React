@@ -252,14 +252,18 @@ export default function  App () {
           }
         
       }
-    }) // cierre listaModificada
+      return ""
+    } 
+    ) // cierre listaModificada
 
       //Si la lista Modificada presenta o no hoteles :
 
-      if (listaModificada.length > 0 ) {
+      let listaModificadaUso = listaModificada
+
+      if (listaModificadaUso.length > 0 ) {
         return ( 
 
-          listaModificada.map( (hotel) => {
+          listaModificadaUso.map( (hotel) => {
             return (
               <HotelCarta   key = {hotel.slug} 
                 imagen = {hotel.photo}
