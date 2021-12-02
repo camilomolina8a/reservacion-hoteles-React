@@ -68,18 +68,24 @@ export default function  App () {
     }
   }
 
+  
   const fechaLenguajeNatural= (fecha) => {
 
     if (typeof(fecha) === 'string') {
       let hoy = new Date(fecha);
-      let diaDeLaSeamana = hoy.getDay();
-      let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
-      let dia = hoy.getDate() ;
-      let mes = hoy.getMonth();
-      let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-      let anio = hoy.getFullYear();
 
-      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia + 1} de ${nombreMes[mes]} de ${anio}`
+      let arrayFecha = fecha.split("-");
+      let dia = arrayFecha[2]
+      dia = dia[0] === "0" ? dia[1] : dia;
+      let diaDeLaSeamana = hoy.getDay()
+      let mes = arrayFecha[1]
+      mes = mes.includes('0') ? mes[1] : mes;
+      let anio = arrayFecha[0]
+
+      let nombreDiaDeLaSemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+      let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+
+      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes-1]} del ${anio}`
     }
     else {
       let hoy = new Date(fecha);
@@ -89,7 +95,7 @@ export default function  App () {
       let mes = hoy.getMonth();
       let nombreMes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
       let anio = hoy.getFullYear();
-      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} de ${anio}`
+      return `${nombreDiaDeLaSemana[diaDeLaSeamana]}, ${dia} de ${nombreMes[mes]} del ${anio}`
     }
   }
 
@@ -166,7 +172,8 @@ export default function  App () {
                                 
             <div className="fecha-salida-container">
                 <label for="fecha-salida" class="etiqueta-fecha-salida">Hasta:</label>
-                <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+                {fechaIngreso !== "" ? <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" class="fecha-salida" onChange={handlerFechaSalida}/>
+                                    :  <input value={fechaSalida} min={fechaIngreso === "" ? fechaDeHoyFormateadaAnioMesDia() : fechaIngreso} type="date" id="fecha-salida" disabled class="fecha-salida" onChange={handlerFechaSalida}/> }
             </div>
 
             <select value={paises} name="paises" id="" onChange={handlerSeleccionarPais}>
