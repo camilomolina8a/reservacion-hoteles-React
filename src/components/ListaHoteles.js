@@ -41,13 +41,13 @@ export default function ListaHoteles({
     } else {
         let listaModificada = listaHoteles.filter((hotel) => {
             let fechaIngresoMilisegundos =
-                new Date(fechaIngreso).valueOf() + 86400000 - 68400000; // 12 am ( comienzo del dia)
+                new Date(fechaIngreso).valueOf() + 86400000 - 68400000; // 00:00:00 ( comienzo del dia)
             let fechaSalidaMilisegundos =
                 new Date(fechaSalida).valueOf() + 86400000 + 86399000; // 23:59:59 final del dia
 
             if (
-                (hotel.availabilityFrom >= fechaIngresoMilisegundos ||
-                    fechaIngreso === "") &&
+                (hotel.availabilityFrom >= fechaIngresoMilisegundos || fechaIngreso === "") &&
+
                 (hotel.availabilityTo <= fechaSalidaMilisegundos ||
                     fechaSalida === "")
             ) {

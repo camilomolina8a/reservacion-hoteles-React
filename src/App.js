@@ -51,7 +51,6 @@ export default function App() {
         setTamanios("todos-tamaños");
     };
 
-    // ################### Return App ###################
 
     return (
         <>
